@@ -1,0 +1,57 @@
+---
+title: "Practical Day One"
+format: html
+---
+
+## Question 1
+
+Find all rows in “airquality” that have missing values.
+
+```{r}
+df_air <- data.frame(airquality)
+rows_na <- df_air[rowSums(is.na(df_air)) > 0, ]
+as.integer(rownames(rows_na))
+```
+
+## Question 2
+
+Find mean, sd, min, max for each of temperature and ozone level.
+
+### Temperature
+
+```{r}
+mean(df_air$Temp)
+sd(df_air$Temp)
+min(df_air$Temp)
+max(df_air$Temp)
+```
+
+### Ozone Level
+
+```{r}
+mean(df_air$Ozone, na.rm = TRUE)
+sd(df_air$Ozone, na.rm = TRUE)
+min(df_air$Ozone, na.rm = TRUE)
+max(df_air$Ozone, na.rm = TRUE)
+```
+
+## Question 3
+
+The cars data contains two variables: speed and distance to stop. Fit a simple linear regression model to these data, i.e. find the estimates.
+
+```{r}
+df_cars <- data.frame(cars)
+X <- cbind(1, df_cars$speed)
+Y <- df_cars$dist
+beta <- solve(t(X) %*% X) %*% t(X) %*% Y
+print(beta)
+```
+
+## Question 4
+
+Fit the linear regression model using lm() in R.
+
+```{r}
+model <- lm(cars$dist ~ cars$speed)
+summary(model)
+```

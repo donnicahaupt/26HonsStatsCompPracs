@@ -1,0 +1,63 @@
+---
+title: "Practical Day Three"
+format: html
+---
+
+## Question 4: Plot curve / function
+
+Plot the function $f(x) = \sin(x)$ for $x \in [-2, 2]$.
+
+```{r}
+x <- seq(-2, 2, length = 10000)
+y <- sin(x)
+plot(x, y, xlab = "x", ylab = "y", type = "l")
+```
+
+## Question 5: QQ-plot
+
+Generate 1000 values from a $t$-distribution with 1 degree of freedom.
+
+Construct a QQ-plot with 95% probability bands (envelopes) to check whether the above values come from a standard normal distribution. You can only use use `rnorm()`, but not `qnorm`, `dnorm`, `pnorm`, or R's qqplot functions.
+
+```{r}
+set.seed(123)
+
+n <- 1000
+x <- rt(n, df = 1)
+
+t_quantiles <- sort(x)
+norm_quantiles <- sort(rnorm(n))
+
+y_coord <- quantile(t_quantiles, probs = c(0.25, 0.75))
+x_coord <- quantile(norm_quantiles, probs = c(0.25, 0.75))
+slope <- (y_coord[2] - y_coord[1]) / (x_coord[2] - x_coord[1])
+int <- y_coord[1] - slope * x_coord[1]
+
+B <- 10000
+bstr <- matrix(0, nrow = B, ncol = n)
+for (i in 1:B) {
+  bstr[i, ] = sort(rnorm(n))
+}
+
+lbounds <- apply(bstr, 2, quantile, probs = 0.025)
+ubounds <- apply(bstr, 2, quantile, probs = 0.975)
+
+lower_line <- int + slope * lbounds
+upper_line <- int + slope * ubounds
+
+plot(norm_quantiles, t_quantiles, ylim = c(-5,5),
+     xlab = "norm quantiles", ylab = "t(1) quantiles")
+polygon(c(norm_quantiles, rev(norm_quantiles)),
+        c(lower_line, rev(upper_line)), 
+        col = rgb(0, 0, 1, 0.2), border = "blue")
+abline(int, slope, col = "blue", lwd = 2)
+```
+
+Check with:
+
+```{r}
+#| message: false
+#| results: false
+library(car)
+qqPlot(x, envelope = 0.95, ylim = c(-5, 5))
+```
