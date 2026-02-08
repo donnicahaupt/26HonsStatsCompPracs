@@ -51,42 +51,10 @@ Explain why the standard deviation is NA for one carrier, and why it is 0 for ot
 
 The standard deviation is NA when there is only one observation and 0 when all the observations are equal for that carrier.
 
-### Carrier OO
-
 ```{r}
 flights %>%
   filter(month == 1) %>%
-  filter(carrier == "OO") %>%
-  group_by(carrier, distance) %>%
-  summarise(observations = n(), .groups = "drop")
-```
-
-### Carrier YV
-
-```{r}
-flights %>%
-  filter(month == 1) %>%
-  filter(carrier == "YV") %>%
-  group_by(carrier, distance) %>%
-  summarise(observations = n(), .groups = "drop")
-```
-
-### Carrier F9
-
-```{r}
-flights %>%
-  filter(month == 1) %>%
-  filter(carrier == "F9") %>%
-  group_by(carrier, distance) %>%
-  summarise(observations = n(), .groups = "drop")
-```
-
-### Carrier AS
-
-```{r}
-flights %>%
-  filter(month == 1) %>%
-  filter(carrier == "AS") %>%
+  filter(carrier %in% c("OO", "YV", "F9", "AS")) %>%
   group_by(carrier, distance) %>%
   summarise(observations = n(), .groups = "drop")
 ```
