@@ -76,8 +76,7 @@ Calculate the proportion of flights that were delayed (dep_delay greater than 0)
 
 ```{r}
 flights %>%
-  filter(!is.na(dep_delay), !is.na(arr_delay)) %>%
-  summarise(proportion = sum(dep_delay > 0 & arr_delay <= 0) / n())
+  summarise(proportion = mean(dep_delay > 0 & arr_delay <= 0, na.rm = TRUE))
 ```
 
 ## Question 6
