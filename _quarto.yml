@@ -8,9 +8,19 @@ website:
     background: light
     position: right
     contents:
-    - index.qmd
-    - prac3.qmd
-    - prac4.qmd
+      - section: "Assignment 1"
+        contents:
+          - text: "Practical Day 1"
+            file: index.qmd
+          - text: "Practical Day 3"
+            file: prac3.qmd
+          - text: "Practical Day 4"
+            file: prac4.qmd
+            
+      - section: "Assignment 2"
+        contents:
+          - text: "Practical Day 12"
+            file: prac10.qmd
 
 format:
   html: 
