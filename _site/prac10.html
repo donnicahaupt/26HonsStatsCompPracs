@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Statistical Computing Practicals 2026 (HPTDON002) - Parallel Computing Practical</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./prac10.html">Assignment 2</a></li><li class="breadcrumb-item"><a href="./prac10.html">Practical Day 12</a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Statistical Computing Practicals 2026 (HPTDON002)</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Assignment 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Practical Day 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prac3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Practical Day 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prac4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Practical Day 4</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Assignment 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prac10.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Practical Day 12</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#question-1" id="toc-question-1" class="nav-link active" data-scroll-target="#question-1">Question 1</a></li>
+  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2">Question 2</a></li>
+  <li><a href="#question-3" id="toc-question-3" class="nav-link" data-scroll-target="#question-3">Question 3</a></li>
+  <li><a href="#question-4" id="toc-question-4" class="nav-link" data-scroll-target="#question-4">Question 4</a></li>
+  <li><a href="#question-5" id="toc-question-5" class="nav-link" data-scroll-target="#question-5">Question 5</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Parallel Computing Practical</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="question-1" class="level2">
+<h2 class="anchored" data-anchor-id="question-1">Question 1</h2>
+<p>Use a <code>foreach</code> loop to repeat 100 times:</p>
+<ul>
+<li>generate a random sample from an exponential distribution with mean 1</li>
+<li>calculate mean and variance</li>
+<li>row-bind your results (rbind) (results = mean and variance).</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mean_var <span class="ot">&lt;-</span> <span class="fu">foreach</span>(<span class="at">i =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>, <span class="at">.combine =</span> <span class="st">'rbind'</span>) <span class="sc">%do%</span> {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  rsample <span class="ot">&lt;-</span> <span class="fu">rexp</span>(<span class="dv">1000</span>,<span class="dv">1</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">as.vector</span>(<span class="fu">c</span>(<span class="fu">mean</span>(rsample),<span class="fu">var</span>(rsample))))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(mean_var) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Mean"</span>,<span class="st">"Variance"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">data.frame</span>(mean_var))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Mean</th>
+<th style="text-align: right;">Variance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">result.1</td>
+<td style="text-align: right;">0.9745133</td>
+<td style="text-align: right;">0.9666243</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.2</td>
+<td style="text-align: right;">0.9854558</td>
+<td style="text-align: right;">0.9535443</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.3</td>
+<td style="text-align: right;">0.9799030</td>
+<td style="text-align: right;">1.0761783</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.4</td>
+<td style="text-align: right;">1.0225349</td>
+<td style="text-align: right;">1.0091753</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.5</td>
+<td style="text-align: right;">1.0247367</td>
+<td style="text-align: right;">1.0671166</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.6</td>
+<td style="text-align: right;">1.0050227</td>
+<td style="text-align: right;">1.0836272</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.7</td>
+<td style="text-align: right;">0.9935883</td>
+<td style="text-align: right;">1.0201132</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.8</td>
+<td style="text-align: right;">0.9808180</td>
+<td style="text-align: right;">1.1571657</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.9</td>
+<td style="text-align: right;">0.9643569</td>
+<td style="text-align: right;">0.8866239</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.10</td>
+<td style="text-align: right;">1.0427554</td>
+<td style="text-align: right;">1.2901020</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.11</td>
+<td style="text-align: right;">0.9780489</td>
+<td style="text-align: right;">1.0202027</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.12</td>
+<td style="text-align: right;">0.9797517</td>
+<td style="text-align: right;">0.9829121</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.13</td>
+<td style="text-align: right;">0.9900182</td>
+<td style="text-align: right;">0.9837510</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.14</td>
+<td style="text-align: right;">0.9597357</td>
+<td style="text-align: right;">1.0199734</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.15</td>
+<td style="text-align: right;">1.0173241</td>
+<td style="text-align: right;">0.9765635</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.16</td>
+<td style="text-align: right;">1.0125459</td>
+<td style="text-align: right;">0.9929313</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.17</td>
+<td style="text-align: right;">1.0022119</td>
+<td style="text-align: right;">0.9757051</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.18</td>
+<td style="text-align: right;">1.0183582</td>
+<td style="text-align: right;">1.0135533</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.19</td>
+<td style="text-align: right;">0.9318714</td>
+<td style="text-align: right;">0.8018599</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.20</td>
+<td style="text-align: right;">0.9461066</td>
+<td style="text-align: right;">0.8845933</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.21</td>
+<td style="text-align: right;">0.9525264</td>
+<td style="text-align: right;">0.8339921</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.22</td>
+<td style="text-align: right;">1.0648767</td>
+<td style="text-align: right;">1.1886810</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.23</td>
+<td style="text-align: right;">0.9849408</td>
+<td style="text-align: right;">1.0057644</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.24</td>
+<td style="text-align: right;">0.9900992</td>
+<td style="text-align: right;">1.0012789</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.25</td>
+<td style="text-align: right;">1.0077186</td>
+<td style="text-align: right;">1.0397065</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.26</td>
+<td style="text-align: right;">1.0130650</td>
+<td style="text-align: right;">1.0353803</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.27</td>
+<td style="text-align: right;">1.0033248</td>
+<td style="text-align: right;">0.9789384</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.28</td>
+<td style="text-align: right;">1.0059463</td>
+<td style="text-align: right;">1.0132547</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.29</td>
+<td style="text-align: right;">0.9132915</td>
+<td style="text-align: right;">0.8437839</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.30</td>
+<td style="text-align: right;">0.9898895</td>
+<td style="text-align: right;">0.9481006</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.31</td>
+<td style="text-align: right;">0.9801023</td>
+<td style="text-align: right;">1.0491382</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.32</td>
+<td style="text-align: right;">0.9645568</td>
+<td style="text-align: right;">0.9345312</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.33</td>
+<td style="text-align: right;">1.0223353</td>
+<td style="text-align: right;">1.0480287</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.34</td>
+<td style="text-align: right;">1.0120290</td>
+<td style="text-align: right;">0.9958347</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.35</td>
+<td style="text-align: right;">0.9815779</td>
+<td style="text-align: right;">0.9356237</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.36</td>
+<td style="text-align: right;">0.9823263</td>
+<td style="text-align: right;">0.8859111</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.37</td>
+<td style="text-align: right;">0.9697946</td>
+<td style="text-align: right;">0.8636501</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.38</td>
+<td style="text-align: right;">0.8975206</td>
+<td style="text-align: right;">0.7985703</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.39</td>
+<td style="text-align: right;">1.0776984</td>
+<td style="text-align: right;">1.2186783</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.40</td>
+<td style="text-align: right;">1.0049903</td>
+<td style="text-align: right;">1.0263126</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.41</td>
+<td style="text-align: right;">0.9934377</td>
+<td style="text-align: right;">1.0443472</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.42</td>
+<td style="text-align: right;">0.9964573</td>
+<td style="text-align: right;">1.0009006</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.43</td>
+<td style="text-align: right;">0.9636832</td>
+<td style="text-align: right;">0.9412650</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.44</td>
+<td style="text-align: right;">0.9855394</td>
+<td style="text-align: right;">0.9925912</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.45</td>
+<td style="text-align: right;">0.9960432</td>
+<td style="text-align: right;">1.0138431</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.46</td>
+<td style="text-align: right;">0.9596761</td>
+<td style="text-align: right;">0.9477796</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.47</td>
+<td style="text-align: right;">0.9938664</td>
+<td style="text-align: right;">1.0296980</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.48</td>
+<td style="text-align: right;">1.0417203</td>
+<td style="text-align: right;">1.0702364</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.49</td>
+<td style="text-align: right;">1.0385405</td>
+<td style="text-align: right;">0.9461995</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.50</td>
+<td style="text-align: right;">0.9979554</td>
+<td style="text-align: right;">0.9630427</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.51</td>
+<td style="text-align: right;">1.0351936</td>
+<td style="text-align: right;">1.0180566</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.52</td>
+<td style="text-align: right;">1.0643114</td>
+<td style="text-align: right;">1.1090879</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.53</td>
+<td style="text-align: right;">0.9842985</td>
+<td style="text-align: right;">1.0649222</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.54</td>
+<td style="text-align: right;">1.0438585</td>
+<td style="text-align: right;">1.1974852</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.55</td>
+<td style="text-align: right;">1.0339679</td>
+<td style="text-align: right;">1.0256778</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.56</td>
+<td style="text-align: right;">1.0128331</td>
+<td style="text-align: right;">1.0419516</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.57</td>
+<td style="text-align: right;">0.9843259</td>
+<td style="text-align: right;">0.9400223</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.58</td>
+<td style="text-align: right;">0.9953779</td>
+<td style="text-align: right;">0.9549345</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.59</td>
+<td style="text-align: right;">0.9569903</td>
+<td style="text-align: right;">0.9413726</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.60</td>
+<td style="text-align: right;">0.9740282</td>
+<td style="text-align: right;">1.0357377</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.61</td>
+<td style="text-align: right;">1.0322066</td>
+<td style="text-align: right;">1.1390380</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.62</td>
+<td style="text-align: right;">0.9777807</td>
+<td style="text-align: right;">1.0025725</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.63</td>
+<td style="text-align: right;">0.9837785</td>
+<td style="text-align: right;">0.9329134</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.64</td>
+<td style="text-align: right;">1.0235080</td>
+<td style="text-align: right;">1.0378812</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.65</td>
+<td style="text-align: right;">1.0077715</td>
+<td style="text-align: right;">1.0326151</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.66</td>
+<td style="text-align: right;">0.9502702</td>
+<td style="text-align: right;">0.9966790</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.67</td>
+<td style="text-align: right;">0.9940012</td>
+<td style="text-align: right;">1.0025941</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.68</td>
+<td style="text-align: right;">1.0201387</td>
+<td style="text-align: right;">1.0534032</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.69</td>
+<td style="text-align: right;">0.9661899</td>
+<td style="text-align: right;">0.7838545</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.70</td>
+<td style="text-align: right;">0.9806023</td>
+<td style="text-align: right;">0.9344282</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.71</td>
+<td style="text-align: right;">1.0395656</td>
+<td style="text-align: right;">1.0994657</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.72</td>
+<td style="text-align: right;">1.0219897</td>
+<td style="text-align: right;">1.0562190</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.73</td>
+<td style="text-align: right;">1.0172742</td>
+<td style="text-align: right;">0.9913728</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.74</td>
+<td style="text-align: right;">0.9923911</td>
+<td style="text-align: right;">0.9755564</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.75</td>
+<td style="text-align: right;">1.0032493</td>
+<td style="text-align: right;">0.9988271</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.76</td>
+<td style="text-align: right;">0.9796963</td>
+<td style="text-align: right;">0.8321469</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.77</td>
+<td style="text-align: right;">0.9849614</td>
+<td style="text-align: right;">0.9906490</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.78</td>
+<td style="text-align: right;">0.9754060</td>
+<td style="text-align: right;">1.0153584</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.79</td>
+<td style="text-align: right;">1.0275821</td>
+<td style="text-align: right;">1.0280883</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.80</td>
+<td style="text-align: right;">1.0601081</td>
+<td style="text-align: right;">1.0483081</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.81</td>
+<td style="text-align: right;">0.9886902</td>
+<td style="text-align: right;">1.0236119</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.82</td>
+<td style="text-align: right;">1.0056540</td>
+<td style="text-align: right;">1.0067366</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.83</td>
+<td style="text-align: right;">0.9525534</td>
+<td style="text-align: right;">0.8245643</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.84</td>
+<td style="text-align: right;">1.0245191</td>
+<td style="text-align: right;">1.0977684</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.85</td>
+<td style="text-align: right;">1.0194087</td>
+<td style="text-align: right;">0.9820326</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.86</td>
+<td style="text-align: right;">0.9768041</td>
+<td style="text-align: right;">0.9822235</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.87</td>
+<td style="text-align: right;">1.0005067</td>
+<td style="text-align: right;">0.8677831</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.88</td>
+<td style="text-align: right;">0.9735362</td>
+<td style="text-align: right;">1.0035225</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.89</td>
+<td style="text-align: right;">0.9678718</td>
+<td style="text-align: right;">0.9193881</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.90</td>
+<td style="text-align: right;">0.9772266</td>
+<td style="text-align: right;">0.9498641</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.91</td>
+<td style="text-align: right;">1.0339093</td>
+<td style="text-align: right;">1.1619825</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.92</td>
+<td style="text-align: right;">1.0116349</td>
+<td style="text-align: right;">1.0677860</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.93</td>
+<td style="text-align: right;">0.9802361</td>
+<td style="text-align: right;">0.8817509</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.94</td>
+<td style="text-align: right;">0.9762876</td>
+<td style="text-align: right;">0.8517379</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.95</td>
+<td style="text-align: right;">0.9969220</td>
+<td style="text-align: right;">0.8996643</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.96</td>
+<td style="text-align: right;">1.0528859</td>
+<td style="text-align: right;">1.1579824</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.97</td>
+<td style="text-align: right;">1.0101929</td>
+<td style="text-align: right;">0.9452723</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.98</td>
+<td style="text-align: right;">0.9736328</td>
+<td style="text-align: right;">0.8937468</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">result.99</td>
+<td style="text-align: right;">0.9740639</td>
+<td style="text-align: right;">0.9232043</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">result.100</td>
+<td style="text-align: right;">0.9973313</td>
+<td style="text-align: right;">1.0578469</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="question-2" class="level2">
+<h2 class="anchored" data-anchor-id="question-2">Question 2</h2>
+<p>Use the <code>doParallel</code> package and <code>foreach</code> to bootstrap the median for the galaxies data (in library MASS).</p>
+<p>If the <code>foreach</code> function needs access to data or a function from a certain package, this can be done by adding the <code>.packages='MASS'</code> (for example) argument.</p>
+<p>How does processing time compare to that of serial processing? If each iteration’s run time is small, relative to the amount of data that needs to be loaded and returned, parallel processing might not actually speed up the total run time. Bootstrapping is relatively small: draw a sample, calculate a statistic. It might only start making a difference if each chunk becomes large relatively to the overheads of data transfer. Experiment with this. Try doing 1000 bootstrap samples at a time instead of managing single bootstrap samples.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>time_serial <span class="ot">&lt;-</span> <span class="fu">system.time</span>({</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  gal_median_serial <span class="ot">&lt;-</span> <span class="fu">foreach</span>(<span class="at">i =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="at">.combine =</span> c, <span class="at">.packages =</span> <span class="st">'MASS'</span>) <span class="sc">%do%</span> {</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">median</span>(<span class="fu">sample</span>(galaxies,<span class="fu">length</span>(galaxies),<span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>cl2 <span class="ot">&lt;-</span> <span class="fu">makeCluster</span>(<span class="dv">3</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoParallel</span>(cl2)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>time_parallel <span class="ot">&lt;-</span> <span class="fu">system.time</span>({</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  gal_median_parallel <span class="ot">&lt;-</span> <span class="fu">foreach</span>(<span class="at">i =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="at">.combine =</span> c, <span class="at">.packages =</span> <span class="st">'MASS'</span>) <span class="sc">%dopar%</span> {</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">median</span>(<span class="fu">sample</span>(galaxies,<span class="fu">length</span>(galaxies),<span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>time_chunks <span class="ot">&lt;-</span> <span class="fu">system.time</span>({</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  gal_median_chunks <span class="ot">&lt;-</span> <span class="fu">foreach</span>(<span class="at">i =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">.combine =</span> c, <span class="at">.packages =</span> <span class="st">'MASS'</span>) <span class="sc">%dopar%</span> {</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    gal_median_chunk <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">100</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>) {</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>      gal_median_chunk[j] <span class="ot">&lt;-</span> <span class="fu">median</span>(<span class="fu">sample</span>(galaxies,<span class="fu">length</span>(galaxies),<span class="at">replace =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    gal_median_chunk</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="fu">stopCluster</span>(cl2)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>results2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Processing =</span> <span class="fu">c</span>(<span class="st">"Serial"</span>,<span class="st">"Parallel"</span>,<span class="st">"Parallel (Chunks)"</span>),</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>                       <span class="at">Time =</span> <span class="fu">c</span>(time_serial[<span class="dv">3</span>],time_parallel[<span class="dv">3</span>],time_chunks[<span class="dv">3</span>]))</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(results2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Processing</th>
+<th style="text-align: right;">Time</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Serial</td>
+<td style="text-align: right;">0.44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Parallel</td>
+<td style="text-align: right;">1.22</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Parallel (Chunks)</td>
+<td style="text-align: right;">0.08</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="question-3" class="level2">
+<h2 class="anchored" data-anchor-id="question-3">Question 3</h2>
+<p>Estimate coverage of a percentile bootstrap confidence interval for the following scenario: sample of size 50 from an exponential distribution with mean 1.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cl3 <span class="ot">&lt;-</span> <span class="fu">makeCluster</span>(<span class="dv">3</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoParallel</span>(cl3)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>coverage <span class="ot">&lt;-</span> <span class="fu">foreach</span>(<span class="at">i =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>, <span class="at">.combine =</span> c) <span class="sc">%dopar%</span> {</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  rexpsample <span class="ot">&lt;-</span> <span class="fu">rexp</span>(<span class="dv">50</span>,<span class="dv">1</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  bstr <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">sample</span>(rexpsample,<span class="dv">50000</span>,<span class="at">replace =</span> <span class="cn">TRUE</span>),<span class="at">nrow =</span> <span class="dv">1000</span>,<span class="at">ncol =</span> <span class="dv">50</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  bstr_mean <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(bstr)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  ci <span class="ot">&lt;-</span> <span class="fu">quantile</span>(bstr_mean, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="dv">1</span> <span class="sc">&gt;=</span> ci[<span class="dv">1</span>] <span class="sc">&amp;&amp;</span> <span class="dv">1</span> <span class="sc">&lt;=</span> ci[<span class="dv">2</span>])</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">stopCluster</span>(cl3)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Coverage:"</span>,<span class="fu">mean</span>(coverage)<span class="sc">*</span><span class="dv">100</span>,<span class="st">"%"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Coverage: 91.8 %</code></pre>
+</div>
+</div>
+</section>
+<section id="question-4" class="level2">
+<h2 class="anchored" data-anchor-id="question-4">Question 4</h2>
+<p>The package iterators provides several functions that can be used to create sequences for the <code>foreach</code> function. For example, the <code>irnorm</code> function creates an object that iterates over vectors of normally distributed random numbers. It is useful when you need to use random variables drawn from one distribution in an expression that is run in parallel.</p>
+<p>In this exercise, use the <code>foreach</code> and <code>irnorm</code> functions to iterate over 3 vectors, each containing 5 random variables. Find the largest value in each vector, and print those largest values.</p>
+<p>Before running the <code>foreach</code> function set the seed to 1234.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>lval <span class="ot">&lt;-</span> <span class="fu">foreach</span>(<span class="at">i =</span> <span class="fu">irnorm</span>(<span class="dv">5</span>,<span class="at">count =</span> <span class="dv">3</span>), <span class="at">.combine =</span> c) <span class="sc">%do%</span> {<span class="fu">max</span>(i)}</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">data.frame</span>(<span class="st">`</span><span class="at">Vector 1</span><span class="st">`</span> <span class="ot">=</span> lval[<span class="dv">1</span>], <span class="st">`</span><span class="at">Vector 2</span><span class="st">`</span> <span class="ot">=</span> lval[<span class="dv">2</span>],</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                 <span class="st">`</span><span class="at">Vector 3</span><span class="st">`</span> <span class="ot">=</span> lval[<span class="dv">3</span>], <span class="at">check.names =</span> <span class="cn">FALSE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Vector 1</th>
+<th style="text-align: right;">Vector 2</th>
+<th style="text-align: right;">Vector 3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1.084441</td>
+<td style="text-align: right;">0.5060559</td>
+<td style="text-align: right;">0.9594941</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="question-5" class="level2">
+<h2 class="anchored" data-anchor-id="question-5">Question 5</h2>
+<p>Compare run time between <code>parLapply</code>, <code>foreach</code> and <code>replicate</code> for the above problem.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cl5 <span class="ot">&lt;-</span> <span class="fu">makeCluster</span>(<span class="dv">3</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoParallel</span>(cl5)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>time_par1 <span class="ot">&lt;-</span> <span class="fu">system.time</span>({</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  lval_par <span class="ot">&lt;-</span> <span class="fu">parLapply</span>(cl5,<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,<span class="cf">function</span>(i) {<span class="fu">max</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>))})</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>time_par2 <span class="ot">&lt;-</span> <span class="fu">system.time</span>({</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  lval_par <span class="ot">&lt;-</span> <span class="fu">parLapply</span>(cl5,<span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>,<span class="cf">function</span>(i) {<span class="fu">max</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>))})</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>time_for1 <span class="ot">&lt;-</span> <span class="fu">system.time</span>({</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  lval_for <span class="ot">&lt;-</span> <span class="fu">foreach</span>(<span class="at">i =</span> <span class="fu">irnorm</span>(<span class="dv">5</span>,<span class="at">count =</span> <span class="dv">3</span>), <span class="at">.combine =</span> c) <span class="sc">%dopar%</span> {<span class="fu">max</span>(i)}</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>time_for2 <span class="ot">&lt;-</span> <span class="fu">system.time</span>({</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  lval_for <span class="ot">&lt;-</span> <span class="fu">foreach</span>(<span class="at">i =</span> <span class="fu">irnorm</span>(<span class="dv">5</span>,<span class="at">count =</span> <span class="dv">10000</span>), <span class="at">.combine =</span> c) <span class="sc">%dopar%</span> {<span class="fu">max</span>(i)}</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>time_rep1 <span class="ot">&lt;-</span> <span class="fu">system.time</span>({</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  lval_rep <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">3</span>,<span class="fu">max</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>)))</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>time_rep2 <span class="ot">&lt;-</span> <span class="fu">system.time</span>({</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  lval_rep <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">10000</span>,<span class="fu">max</span>(<span class="fu">rnorm</span>(<span class="dv">5</span>)))</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="fu">stopCluster</span>(cl5)</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">Method =</span> <span class="fu">c</span>(<span class="st">"parLapply"</span>,<span class="st">"foreach"</span>,<span class="st">"replicate"</span>),</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Time (3 vectors)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(time_par1[<span class="dv">3</span>],time_for1[<span class="dv">3</span>],time_rep1[<span class="dv">3</span>]),</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Time (10000 vectors)</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">c</span>(time_par2[<span class="dv">3</span>],time_for2[<span class="dv">3</span>],time_rep2[<span class="dv">3</span>]),</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">check.names =</span> <span class="cn">FALSE</span></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Method</th>
+<th style="text-align: right;">Time (3 vectors)</th>
+<th style="text-align: right;">Time (10000 vectors)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">parLapply</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.06</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">foreach</td>
+<td style="text-align: right;">0.06</td>
+<td style="text-align: right;">9.18</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">replicate</td>
+<td style="text-align: right;">0.00</td>
+<td style="text-align: right;">0.06</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

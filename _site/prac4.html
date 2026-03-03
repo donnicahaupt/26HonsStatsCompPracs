@@ -106,7 +106,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./prac4.html">Practical Day Four</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Assignment 1</a></li><li class="breadcrumb-item"><a href="./prac4.html">Practical Day 4</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -131,24 +131,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Assignment 1</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Practical Day One</span></a>
+ <span class="menu-text">Practical Day 1</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./prac3.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Practical Day Three</span></a>
+ <span class="menu-text">Practical Day 3</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./prac4.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Practical Day Four</span></a>
+ <span class="menu-text">Practical Day 4</span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Assignment 2</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./prac10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Practical Day 12</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
     </ul>
     </div>
 </nav>
@@ -458,52 +486,52 @@ $ time_hour      &lt;dttm&gt; 2013-01-01 05:00:00, 2013-01-01 05:00:00, 2013-01-
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>UtilsDataRSV<span class="sc">::</span><span class="fu">view_cols</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "id"
- [1] "id_13" "id_22" "id_4"  "id_40" "id_41" "id_26" "id_32" "id_14" "id_11"
-[10] "id_18" "id_19" "id_37" "id_10" "id_1"  "id_45" "id_25" "id_48" "id_49"
-[19] "id_39" "id_42"
+ [1] "id_32" "id_14" "id_26" "id_50" "id_6"  "id_45" "id_27" "id_41" "id_36"
+[10] "id_5"  "id_35" "id_31" "id_29" "id_15" "id_12" "id_23" "id_16" "id_4" 
+[19] "id_33" "id_17"
 [1] "30 unique entries not displayed"
 [1] "_____________________"
 [1] "age"
-[1] 48 28 51 29 72
+[1] 69 38 71 29 31
 [1] "_____________________"
 [1] "gender"
-[1] "female" "male"   "femal" 
+[1] "femal"  "female" "male"  
 [1] "_____________________"
 [1] "height"
-[1] 194.6 179.3 172.0 192.4    NA
+[1] 182.4 165.6 150.5 197.4    NA
 [1] "_____________________"
 [1] "weight"
-[1] 95.1 87.3 78.6 68.6 93.7
+[1] 69.5 93.2 67.7 59.2 55.6
 [1] "_____________________"
 [1] "blood_type"
-[1] "AB" "B"  "O"  "A" 
+[1] "O"  "AB" "A"  "B" 
 [1] "_____________________"
 [1] "disease_status"
-[1] "healthy"  "Healthy"  "diseased"
+[1] "diseased" "Healthy"  "healthy" 
 [1] "_____________________"
 [1] "cholesterol"
-[1] 174 223 203 165 199
+[1] 233 214 230 173 164
 [1] "_____________________"
 [1] "glucose"
-[1] 86 81 78 84 NA
+[1]  90  99  87 108  NA
 [1] "_____________________"
 [1] "smoker"
 [1] "no"  "yes"
 [1] "_____________________"
 [1] "exercise"
-[1] "occasional" "regular"    "none"      
+[1] "regular"    "none"       "occasional"
 [1] "_____________________"
 [1] "income"
-[1] 62405 31402 29586 88295 21516
+[1] 62615 22607 96351 74533 91326
 [1] "_____________________"
 [1] "education"
-[1] "bachelor"   "master"     "PhD"        "highschool"
+[1] "highschool" "PhD"        "bachelor"   "master"    
 [1] "_____________________"
 [1] "region"
-[1] "West"  "North" "South" "East" 
+[1] "North" "East"  "West"  "South"
 [1] "_____________________"
 [1] "marital_status"
-[1] "widowed"  "single"   "married"  "divorced"
+[1] "single"   "widowed"  "married"  "divorced"
 [1] "_____________________"</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
