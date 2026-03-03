@@ -20,7 +20,7 @@ website:
       - section: "Assignment 2"
         contents:
           - text: "Practical Day 12"
-            file: prac10.qmd
+            file: prac12.qmd
 
 format:
   html: 
